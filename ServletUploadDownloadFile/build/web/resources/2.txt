@@ -1,0 +1,34 @@
+package Java_Json;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+import com.google.gson.Gson;
+
+@WebServlet("/JsonServlet")
+public class JsonServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	PrintWriter out;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		out=response.getWriter();
+		try {	
+			    String name=request.getParameter("name");
+			    String address=request.getParameter("address");
+			    System.out.println(name+" "+address);
+			    response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    out.print(new Gson().toJson(name+" "+address));
+		} catch (Exception e) {
+			out.println(e);
+		}
+	}
+
+}
